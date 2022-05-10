@@ -1,0 +1,43 @@
+html, body {
+    width: 100%;
+height: 100%;
+/* background-image: url("back.png"); */
+background-size:100% 100%; 
+background-color: black;
+}
+
+.dvqiu {
+    width:60%;
+    height:60%;
+    top: 50%;
+}
+
+.h1{
+    font-size: 3em;
+    color: white;
+}
+/* #dvbottom {
+    top: 92%;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    background-color: black;
+    z-index: 200;
+} */
+
+/* #dvright {
+    color:white;
+    font-weight:bolder;
+    width: 20%;
+    right: 0;
+    left: 80%;
+    float: right;
+    position: absolute;
+    height: 80px;
+    background-color: black;
+    z-index: 300;
+} */
+
+
+
+

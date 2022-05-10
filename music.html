@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link href="cat.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+   
+
+    <script type="text/javascript">
+        //document.onload 页面加载的时候,设置页面视频开始播放
+        window.onload = function () {
+            let vd = document.getElementById("vd1");
+            vd.autoplay = true;
+            if (vd.paused) { //判断是否处于暂停状态
+                vd.play(); //开启播放
+            } else {
+                vd.pause(); //停止播放
+            }
+        };
+       
+        //展示右边的搜索面板
+        function showright() {
+            //获取右面的div
+            let rightdiv = document.getElementById("dvright");
+            let hasshow = rightdiv.getAttribute("hasshow");
+            //如果面板没有展开,设置面板展开并且设置其样式
+            if (hasshow = "0") {
+                //1表示展开
+                rightdiv.setAttribute("hasshow", "1");
+                rightdiv.style.display = "block";
+                rightdiv.style.height = "90%";
+                console.log(hasshow);
+            }
+        }
+
+      
+//隐藏右侧的面板
+        function hideright(obj) {
+                    //alert('ok');
+            if (obj.id == "dvright") {
+                let rightdiv = document.getElementById("dvright");
+                //0表示隐藏
+                rightdiv.setAttribute("hasshow", "0");
+                rightdiv.style.display = "none";
+            }
+            else { return; }
+        }
+
+
+//页面加载完成时
+        document.addEventListener("DOMContentLoaded", function () {
+        
+//获取右侧的面板,并隐藏右侧面板
+            var dvright = document.getElementById('dvright');
+            dvright.style.display = "none";
+//鼠标移出右侧面板时, 隐藏该面板
+            dvright.onmouseout = function (e) {
+                //e是当前执行的鼠标事件, ! = 否
+                if (!e) e = window.event;
+                var reltg = e.relatedTarget ? e.relatedTarget : e.toElement;
+                while (reltg && reltg != this) reltg = reltg.parentNode;
+                if (reltg != this) {
+                    // mouseleave事件
+                    document.getElementById('dvright').style.display = "none";
+                }
+            };
+
+//获取发送按钮
+            var oSend = document.querySelector('#send');
+            //获取发送的input
+            var oContent = document.querySelector('#search_input');
+            //获取视频播放面板的div
+            var oVideoBox = document.querySelector('.videoBox');
+            //发送message事件
+            function sendMsg() {
+                //获取发送的内容
+                var content = oContent.value;
+                //创建弹幕html标签
+                var oSpan = document.createElement('span');
+                //并且设置属性
+                oSpan.className = 'danmu';
+                oSpan.innerHTML = content;
+                //将创建的弹幕html,追加到视频面板的div当中
+                oVideoBox.appendChild(oSpan);
+                //设置弹幕的显示位置
+                var maxTop = oVideoBox.clientHeight - oSpan.offsetHeight;
+                //设置弹幕的随机位置
+                oSpan.style.top = Math.round(Math.random() * maxTop) + 'px';
+
+                //设置定时移动弹幕的位置
+                var timer = setInterval(() => {
+                    var left = oSpan.offsetLeft;
+                    left -= 10;
+                    oSpan.style.left = left + 'px';
+                    if (left < -oSpan.offsetWidth) {
+                        clearInterval(timer);
+                        oSpan.remove();
+                    }
+                }, 100);
+                oContent.value = "";
+            }
+
+                /*
+            oSend.onclick = function () {
+                var form = document.getElementById('form');
+                form.submit();
+            }
+            */
+
+          
+
+        })
+
+    </script>
+
+<script type="text/javascript">
+//search music fuction 
+function searchmusic()
+{
+ document.querySelector('#musiclist').innerHTML ="";
+// display prompt
+var favouriteSong = $("#keyword").val();
+
+//var loading = document.querySelector('#loading')
+//display loader
+//loading.style.display = 'block'
+//using ajax looking for data typed in
+//使用局部刷新,获取数据
+$.ajax({
+    //用了apple iTunes api
+    url: 'https://itunes.apple.com/search',
+    data: {
+        term: favouriteSong
+    },
+    dataType: 'jsonp',
+    success: function (data) {
+		//hide loader 
+        //loading.style.display = 'none'
+        renderResults(data)
+    }
+})
+}
+
+//渲染获取到的数据到右侧的div面板中
+function renderResults(data) {
+    var ol = document.querySelector('#musiclist')
+    console.log(data)
+// create new Element inside ol
+    data.results.forEach(function (song) {
+        var li = document.createElement('li')
+        var h3 = document.createElement('h3')
+        var h2 = document.createElement('h2')
+        var h1 = document.createElement('h1')
+        var img = document.createElement('img')
+        var audio = document.createElement('audio')
+            var genre = document.createElement('p')
+        console.log(song)
+
+// Input data from API itunes
+        h1.textContent = song.kind
+        h2.textContent = song.trackName
+        h3.textContent = song.artistName
+        img.src = song.artworkUrl100
+        audio.src = song.previewUrl
+        audio.controls = true
+        audio.preload = "none"
+        genre.textContent = song.primaryGenreName
+
+//appendChild 
+        li.appendChild(h1)
+        li.appendChild(img)
+        li.appendChild(h2)
+        li.appendChild(h3)
+        li.appendChild(genre)
+        li.appendChild(audio)
+        ol.appendChild(li)
+    })
+}
+
+
+</script>
+</head>
+
+
+
+<body>
+    <div id="mainvideo" class="videoBox" style="width:100%; height:90%; z-index:10;">
+        <video id="vd1" width="100%" height="100%" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="cat.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="dvbottom" >
+        <div class="search">
+            <form id="form" action="">
+            <input type="text" class="search_input" id="search_input" placeholder="Please, inter your text" />
+            <input type="button" class="search_btn" id="send" value="Send" />
+            </form>
+        </div>
+    </div>
+    <span id="sptitle" onmouseover="showright()">
+   <!--  ——Search Music—— <br >-->
+    <input id="keyword" autocomplete="off" style="width: 200px; height:25px;" /><button onclick="searchmusic()" style="height: 28px;">Search Music</button>
+    </span>
+    <div id="dvright" hasshow="0" style="overflow:scroll;" >
+        <ul id="musiclist">
+           
+        </ul>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        //初始化socket对象
+        var socket = io();
+        //获取message标签
+        var messages = document.getElementById('mainvideo');
+             //获取发送按钮标签
+        var send = document.getElementById('send');
+             //获取input标签
+        var input = document.getElementById('search_input');
+  //click事件,监听发送按钮
+        send.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+          }
+        });
+  //从socket 对象当中监听chat message's content. 并填充到弹幕当中去,设置弹幕样式
+        socket.on('chat message', function(msg) {
+            var oContent = document.querySelector('#search_input');
+            var oVideoBox = document.querySelector('.videoBox');
+            var content = msg;
+                var oSpan = document.createElement('span');
+                oSpan.className = 'danmu';
+                oSpan.innerHTML = content;
+                oVideoBox.appendChild(oSpan);
+                var maxTop = oVideoBox.clientHeight - oSpan.offsetHeight;
+
+                oSpan.style.top = Math.round(Math.random() * maxTop) + 'px';
+
+                var timer = setInterval(() => {
+                    var left = oSpan.offsetLeft;
+                    left -= 10;
+                    oSpan.style.left = left + 'px';
+                    if (left < -oSpan.offsetWidth) {
+                        clearInterval(timer);
+                        oSpan.remove();
+                    }
+                }, 100);
+                oContent.value = "";
+        });
+      </script>
+</body>
+</html>

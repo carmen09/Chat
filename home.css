@@ -12,9 +12,9 @@ background-color: black;
     top: 50%;
 }
 
-.h1{
-    font-size: 3em;
-    color: white;
+h1 {
+    color:orange;
+    text-align:center;
 }
 /* #dvbottom {
     top: 92%;

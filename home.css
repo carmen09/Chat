@@ -4,17 +4,32 @@ height: 100%;
 /* background-image: url("back.png"); */
 background-size:100% 100%; 
 background-color: black;
+
+
 }
 
 .dvqiu {
-    width:60%;
-    height:60%;
-    top: 50%;
+    position: absolute;
+    top: 20%;
+  left: 65%;
+  color:yellow;
 }
 
 h1 {
-    color:orange;
+    color:white;
     text-align:center;
+    font-family: 'Dela Gothic One', cursive;
+    font-size: 5em;
+}
+p{
+    color:white;
+    float: left;
+    font-family: 'Nunito Sans', sans-serif;
+    width: 50%;
+   height: 50%;
+   position: absolute;
+   font-size: 2em;
+   right: 45%;
 }
 /* #dvbottom {
     top: 92%;

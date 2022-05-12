@@ -10,25 +10,25 @@
    
 
     <script type="text/javascript">
-        //document.onload 页面加载的时候,设置页面视频开始播放
+        //document.onload -When the page loads, set the page video to start playing
         window.onload = function () {
             let vd = document.getElementById("vd1");
             vd.autoplay = true;
-            if (vd.paused) { //判断是否处于暂停状态
-                vd.play(); //开启播放
+            if (vd.paused) { //Determine whether it is in a suspended state
+                vd.play(); //start play
             } else {
-                vd.pause(); //停止播放
+                vd.pause(); //stop play
             }
         };
        
-        //展示右边的搜索面板
+       ////Display the search panel on the right
         function showright() {
-            //获取右面的div
+            ////get the right(the search bar) div
             let rightdiv = document.getElementById("dvright");
             let hasshow = rightdiv.getAttribute("hasshow");
-            //如果面板没有展开,设置面板展开并且设置其样式
+            //If the panel is not expanded, set the panel to expand and set its style
             if (hasshow = "0") {
-                //1表示展开
+   //1 means expand
                 rightdiv.setAttribute("hasshow", "1");
                 rightdiv.style.display = "block";
                 rightdiv.style.height = "90%";
@@ -37,12 +37,12 @@
         }
 
       
-//隐藏右侧的面板
+//Hide the right panel
         function hideright(obj) {
                     //alert('ok');
             if (obj.id == "dvright") {
                 let rightdiv = document.getElementById("dvright");
-                //0表示隐藏
+           //0 means hidden
                 rightdiv.setAttribute("hasshow", "0");
                 rightdiv.style.display = "none";
             }
@@ -50,15 +50,15 @@
         }
 
 
-//页面加载完成时
+// when the page is loaded
         document.addEventListener("DOMContentLoaded", function () {
         
-//获取右侧的面板,并隐藏右侧面板
+//Get the right panel and hide the right panel
             var dvright = document.getElementById('dvright');
             dvright.style.display = "none";
-//鼠标移出右侧面板时, 隐藏该面板
+//When the mouse moves out of the right panel, hide the panel
             dvright.onmouseout = function (e) {
-                //e是当前执行的鼠标事件, ! = 否
+            //e is the currently executed mouse event, ! = no
                 if (!e) e = window.event;
                 var reltg = e.relatedTarget ? e.relatedTarget : e.toElement;
                 while (reltg && reltg != this) reltg = reltg.parentNode;
@@ -68,22 +68,22 @@
                 }
             };
 
-//获取发送按钮
+// get send button
             var oSend = document.querySelector('#send');
-            //获取发送的input
+         //Get the sent input
             var oContent = document.querySelector('#search_input');
-            //获取视频播放面板的div
+       //Get the div of the video playback panel
             var oVideoBox = document.querySelector('.videoBox');
-            //发送message事件
+         //Send message event
             function sendMsg() {
-                //获取发送的内容
+           //Get the sent content
                 var content = oContent.value;
-                //创建弹幕html标签
+             //Create a barrage html tag
                 var oSpan = document.createElement('span');
-                //并且设置属性
+            //and set the properties
                 oSpan.className = 'danmu';
                 oSpan.innerHTML = content;
-                //将创建的弹幕html,追加到视频面板的div当中
+               //Append the created barrage html to the div of the video panel
                 oVideoBox.appendChild(oSpan);
                 //设置弹幕的显示位置
                 var maxTop = oVideoBox.clientHeight - oSpan.offsetHeight;
@@ -128,9 +128,10 @@ var favouriteSong = $("#keyword").val();
 //display loader
 //loading.style.display = 'block'
 //using ajax looking for data typed in
-//使用局部刷新,获取数据
+//Use local refresh to get data
+//get the reference from https://codepen.io/hanvinder/pen/xdMVPB
 $.ajax({
-    //用了apple iTunes api
+    //Use apple iTunes api
     url: 'https://itunes.apple.com/search',
     data: {
         term: favouriteSong
@@ -144,7 +145,7 @@ $.ajax({
 })
 }
 
-//渲染获取到的数据到右侧的div面板中
+////Render the obtained data to the div panel on the right
 function renderResults(data) {
     var ol = document.querySelector('#musiclist')
     console.log(data)
@@ -212,15 +213,16 @@ function renderResults(data) {
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        //初始化socket对象
+        //learn from https://socket.io/get-started/chat
+       //Initialize the socket object
         var socket = io();
-        //获取message标签
+       //Get the message tag
         var messages = document.getElementById('mainvideo');
-             //获取发送按钮标签
+          //Get the send button label
         var send = document.getElementById('send');
-             //获取input标签
+            //get the input tag
         var input = document.getElementById('search_input');
-  //click事件,监听发送按钮
+ //click event, listen to send button
         send.addEventListener('click', function(e) {
           e.preventDefault();
           if (input.value) {
@@ -229,6 +231,7 @@ function renderResults(data) {
           }
         });
   //从socket 对象当中监听chat message's content. 并填充到弹幕当中去,设置弹幕样式
+  //Listen to the chat message's content from the socket object. Fill it into the barrage, and set the barrage style
         socket.on('chat message', function(msg) {
             var oContent = document.querySelector('#search_input');
             var oVideoBox = document.querySelector('.videoBox');

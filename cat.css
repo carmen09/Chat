@@ -4,10 +4,7 @@
      background-image: url("back.png");
     background-size:100% 100%;
   } */ 
-  body{
-    background-color: black;
-        font-family: 'Dela Gothic One', cursive;
-  }
+  
   
   .dvqiu {
       width:30%;
@@ -17,21 +14,20 @@
   
   #dvbottom {
       top: 89%;
-      width: 100%;
+      width: 90%;
       height: 100px;
       position: absolute;
       background-color: black;
       z-index: 200;
-      font-family: 'Dela Gothic One', cursive;
+      border-radius: 70%;
   }
   
   #dvright {
-    font-family: 'Dela Gothic One', cursive;
-    color:pink;
+      color:pink;
       font-weight:bolder;
       width: 25%;
       right: 0;
-      top: 70px;
+      top: 50px;
       left: 75%;
       float: right;
       position: absolute;
@@ -43,7 +39,6 @@
   
   
 #sptitle {
-  font-family: 'Dela Gothic One', cursive;
     color:white;
     font-weight:bolder;
     text-align: center;
@@ -62,7 +57,6 @@
 #dvrightlist {
 height: 89%;
 z-index: 500;
-font-family: 'Dela Gothic One', cursive;
 }
 
 ul {
@@ -78,7 +72,6 @@ width: 598px;
 height: 48px;
 border: 1px solid black;
 margin: 10px 0;
-font-family: 'Dela Gothic One', cursive;
 }
 
 .search_input {
@@ -87,7 +80,6 @@ float: left;
 height: 48px;
 line-height: 28px;
 padding: 0 8px;
-font-family: 'Dela Gothic One', cursive;
 }
 
 .search_btn {
@@ -96,10 +88,7 @@ height: 48px;
 float: right;
 line-height:28px;
 margin-right: 1px;
-font-family: 'Dela Gothic One', cursive;
-
 }
-
 
 .danmu{
 color:red;
@@ -110,5 +99,4 @@ left: 800px;
 top: 0;
 white-space: nowrap;
 border-radius: 70%;
-font-family: 'Dela Gothic One', cursive;
 }

@@ -86,11 +86,14 @@
                //Append the created barrage html to the div of the video panel
                 oVideoBox.appendChild(oSpan);
                 //设置弹幕的显示位置
+                ////Set the display position of the bullet screen
                 var maxTop = oVideoBox.clientHeight - oSpan.offsetHeight;
                 //设置弹幕的随机位置
+                ////Set the random position of the barrage
                 oSpan.style.top = Math.round(Math.random() * maxTop) + 'px';
 
                 //设置定时移动弹幕的位置
+                ////Set the position of the timed moving barrage
                 var timer = setInterval(() => {
                     var left = oSpan.offsetLeft;
                     left -= 10;
@@ -189,7 +192,7 @@ function renderResults(data) {
 
 <body>
     <div id="mainvideo" class="videoBox" style="width:100%; height:90%; z-index:10;">
-        <video id="vd1" width="100%" height="100%" autoplay="autoplay" muted="muted" loop="loop">
+        <video id="vd1" width="100%" height="80%" autoplay="autoplay" muted="muted" loop="loop">
             <source src="cat.mp4" type="video/mp4">
         </video>
     </div>
